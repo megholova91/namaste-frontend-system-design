@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malicious iframe</title>
+</head>
+
+<body>
+    <h1>Malicious iframe</h1>
+    <p>This iframe attempts to steal data from the parent window.</p>
+
+    <script>
+        window.alert('Hi');
+        // Malicious JavaScript code in the iframe
+        /**
+         * Modern browsers prevent this but older ones allow
+         * iframe-website2:26 Data theft failed: DOMException: Failed to read a named property 'document' from 'Window': Blocked a frame with origin "http://localhost:5011" from accessing a cross-origin frame.
+            at window.onload
+         */
+        window.onload = function () {
+            try {
+                const parentWindow = window.parent;
+                const parentDocument = parentWindow.document;
+
+                // Attempt to read html
+                const stolenData = parentDocument.innerHtml;
+                alert("Stolen Data: " + stolenData);
+            } catch (error) {
+                console.error("Data theft failed:", error);
+            }
+        };
+    </script>
+</body>
+
+</html>

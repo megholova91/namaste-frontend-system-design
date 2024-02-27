@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click hijacking example</title>
+</head>
+
+<body>
+    <h1>Click hijacking example</h1>
+    <p>Click the button below to see a simple click hijacking demo</p>
+    <iframe src="http://localhost:5011/iframe-website1" id="legit-iframe"></iframe>
+    <button id="overlay-button">Click me!</button>
+    <style>
+        #legit-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+        //simulate a click hijacking attack by overlaying the button on top of the iframe
+        document.getElementById('overlay-button').addEventListener("click", () => {
+            alert('Button clicked!')
+        })
+    </script>
+</body>
+
+</html>
